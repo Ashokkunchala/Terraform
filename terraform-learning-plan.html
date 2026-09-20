@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraform Learning Journey: From Zero to Production Expert</title>
+    <style>
+        :root {
+            --primary-color: #1565C0;
+            --secondary-color: #2E7D32;
+            --accent-color: #EF6C00;
+            --warning-color: #C62828;
+            --info-color: #6A1B9A;
+            --light-bg: #F5F5F5;
+            --dark-bg: #212121;
+            --text-light: #FFFFFF;
+            --text-dark: #212121;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #64B5F6;
+            --secondary-color: #81C784;
+            --accent-color: #FFB74D;
+            --warning-color: #E57373;
+            --info-color: #CE93D8;
+            --light-bg: #424242;
+            --dark-bg: #212121;
+            --text-light: #FFFFFF;
+            --text-dark: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 3px solid var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-primary {
+            background-color: var(--primary-color);
+            color: var(--text-light);
+        }
+
+        .badge-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+        }
+
+        .badge-accent {
+            background-color: var(--accent-color);
+            color: var(--text-dark);
+        }
+
+        .badge-warning {
+            background-color: var(--warning-color);
+            color: var(--text-light);
+        }
+
+        .badge-info {
+            background-color: var(--info-color);
+            color: var(--text-light);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title::before {
+            content: "";
+            width: 4px;
+            height: 24px;
+            background-color: var(--primary-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .mermaid {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .project-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .project-card ul {
+            margin-left: 20px;
+        }
+
+        .project-card li {
+            margin-bottom: 8px;
+        }
+
+        .tip-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist li::before {
+            content: "□";
+            width: 20px;
+            text-align: center;
+        }
+
+        .checklist li.completed::before {
+            content: "✓";
+            color: var(--secondary-color);
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            border-top: 1px solid #eee;
+            margin-top: 40px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Terraform Learning Journey</h1>
+            <p>From Zero to Production Expert</p>
+            <span class="badge badge-primary">30-Day Intensive Plan</span>
+            <span class="badge badge-secondary">Hands-on Practice</span>
+            <span class="badge badge-accent">Interview Preparation</span>
+        </header>
+
+        <section class="section">
+            <h2 class="section-title">📅 Daily Learning Plan Overview</h2>
+            <div class="mermaid">
+                %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#1565C0', 'secondaryColor': '#2E7D32', 'tertiaryColor': '#EF6C00'}}}%%
+                flowchart LR
+                    A[Week 1: Foundations] --> B[Week 2: Intermediate]
+                    B --> C[Week 3: Advanced]
+                    C --> D[Week 4: Production]
+
+                    subgraph Foundations
+                        A1[Day 1: IaC Basics] --> A2[Day 2: CLI Workflow]
+                        A2 --> A3[Day 3: Providers]
+                        A3 --> A4[Day 4: Variables]
+                        A4 --> A5[Day 5: State]
+                        A5 --> A6[Day 6: Dependencies]
+                        A6 --> A7[Day 7: Mini Project]
+                    end
+
+                    subgraph Intermediate
+                        B1[Day 8: Modules] --> B2[Day 9: Composition]
+                        B2 --> B3[Day 10: Data Sources]
+                        B3 --> B4[Day 11: Functions]
+                        B4 --> B5[Day 12: Workspaces]
+                        B5 --> B6[Day 13: Backends]
+                        B6 --> B7[Day 14: Refactor]
+                    end
+
+                    subgraph Advanced
+                        C1[Day 15: Provisioners] --> C2[Day 16: Lifecycle]
+                        C2 --> C3[Day 17: Terraform Cloud]
+                        C3 --> C4[Day 18: Sentinel]
+                        C4 --> C5[Day 19: Testing]
+                        C5 --> C6[Day 20: 0.15+ Features]
+                        C6 --> C7[Day 21: Microservices]
+                    end
+
+                    subgraph Production
+                        D1[Day 22: Security] --> D2[Day 23: Cost]
+                        D2 --> D3[Day 24: Debugging]
+                        D3 --> D4[Day 25: CI/CD]
+                        D4 --> D5[Day 26: Multi-cloud]
+                        D5 --> D6[Day 27: TFE Features]
+                        D6 --> D7[Day 28: Prep]
+                        D7 --> D8[Day 29: Capstone]
+                        D8 --> D9[Day 30: Interview]
+                    end
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">🏗️ Capstone Projects</h2>
+
+            <div class="project-card">
+                <h3>Beginner Project: Personal Blog Infrastructure</h3>
+                <p>Static website on S3 + CloudFront with Route53 DNS and SSL certificate</p>
+                <ul>
+                    <li><strong>Skills:</strong> Core resources, variables, outputs, basic modules</li>
+                    <li><strong>Components:</strong> S3 bucket, CloudFront distribution, Route53 record, ACM certificate</li>
+                    <li><strong>Learning Focus:</strong> Resource dependencies, basic networking, CDN concepts</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <h3>Intermediate Project: Microservices Platform</h3>
+                <p>EKS cluster with managed node groups, RDS Aurora, and service networking</p>
+                <ul>
+                    <li><strong>Skills:</strong> Modules, state management, networking, Kubernetes integration</li>
+                    <li><strong>Components:</strong> EKS cluster, RDS PostgreSQL, ElastiCache Redis, ALB, IAM roles</li>
+                    <li><strong>Learning Focus:</strong> Complex networking, secret management, service discovery</li>
+                </ul>
+            </div>
+
+            <div class="project-card">
+                <h3>Advanced Project: Global Financial Trading Platform</h3>
+                <p>Multi-region deployment with disaster recovery and advanced security</p>
+                <ul>
+                    <li><strong>Skills:</strong> Advanced modules, workspaces, complex dependencies, security, multi-region strategies</li>
+                    <li><strong>Components:</strong> Multi-region VPCs, Aurora Global DB, CloudFront + Lambda@Edge, WAF, Vault, ELK stack</li>
+                    <li><strong>Learning Focus:</strong> Global architecture, compliance, advanced security patterns</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">💡 Pro Tips & Best Practices</h2>
+
+            <div class="tip-box">
+                <h4>State Management Best Practices</h4>
+                <p>Always use remote state with locking for team environments. Never edit state files directly - use Terraform CLI commands like <code>terraform state mv</code>, <code>terraform state rm</code>, and <code>terraform state import</code> instead.</p>
+            </div>
+
+            <div class="tip-box">
+                <h4>Module Design Principles</h4>
+                <p>Follow the "one responsibility" principle: each module should do one thing well. Version your modules using semantic versioning and publish to a module registry (public or private) for reusability.</p>
+            </div>
+
+            <div class="tip-box">
+                <h4>Performance Optimization</h4>
+                <p>For large infrastructures, use targeted applies (<code>-target</code> flag) and consider breaking your configuration into smaller, logically grouped configurations. Use Terraform Cloud for remote runs and better collaboration.</p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">📝 Interview Question Bank</h2>
+
+            <h3>Beginner Level</h3>
+            <ul>
+                <li>What is Terraform and how does it differ from other IaC tools?</li>
+                <li>Explain the Terraform workflow: init → plan → apply</li>
+                <li>What is state file and why is it important?</li>
+                <li>How do you handle sensitive data in Terraform?</li>
+                <li>What are providers and resources in Terraform?</li>
+            </ul>
+
+            <h3>Intermediate Level</h3>
+            <ul>
+                <li>Difference between count, for_each, and depends_on</li>
+                <li>How do you share state between teams securely?</li>
+                <li>Explain module versioning and sources</li>
+                <li>What are data sources and when would you use them?</li>
+                <li>How do you test Terraform code?</li>
+            </ul>
+
+            <h3>Advanced Level</h3>
+            <ul>
+                <li>How do you implement drift detection and remediation?</li>
+                <li>Explain Sentinel policies and their use cases</li>
+                <li>How do you manage secrets in Terraform at scale?</li>
+                <li>Describe a complex multi-cloud Terraform implementation</li>
+                <li>How do you optimize Terraform performance for large infrastructures?</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2 class="section-title">📈 Production Readiness Checklist</h2>
+
+            <h3>Before Applying to Production</h3>
+            <ul class="checklist">
+                <li>Code reviewed by at least one peer</li>
+                <li>Automated tests pass (Terratest/Checkov)</li>
+                <li>Plan reviewed and approved</li>
+                <li>State backend configured with locking</li>
+                <li>Variables validated (no hardcoded secrets)</li>
+                <li>Cost estimation completed</li>
+                <li>Security scan passed</li>
+                <li>Rollback plan documented</li>
+                <li>Monitoring/alerting configured</li>
+                <li>Documentation updated</li>
+            </ul>
+
+            <h3>Ongoing Maintenance</h3>
+            <ul class="checklist">
+                <li>Regular state backups verification</li>
+                <li>Dependency updates monitored</li>
+                <li>Drift detection scheduled</li>
+                <li>Cost optimization reviews</li>
+                <li>Security scanning frequency</li>
+                <li>Module version updates tested</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>Updated: September 20, 2026 | Version 1.0</p>
+            <p>Happy Terraforming! 🚀</p>
+        </footer>
+    </div>
+</body>
+</html>
