@@ -1,54 +1,45 @@
-# Terraform Learning Resources Summary
-
-This repository is a progressive Terraform learning program, organized for beginners through production-level AWS engineers.
+# Terraform Mastery — Repository Index
 
 ## Start
-
 - [README](./README.md)
-- [45-Day Roadmap](./ROADMAP.md)
+- [60-Day Calendar](./CALENDAR.md)
+- [Complete Syllabus](./SYLLABUS.md)
 - [Study Method](./STUDY_METHOD.md)
-- [Project Ladder](./PROJECTS.md)
 
 ## Daily Lessons
+- Days 01–60 are under [days/](./days/).
+- Every day contains learning notes, an example, practical work, break/fix, production checklist and interview Q&A.
 
-- [Day 01 — Foundations](./days/day-01-foundations.md)
-- [Day 02 — CLI Workflow](./days/day-02-cli-workflow.md)
+## Weekly Reviews
+- [Weekly Review Process](./weekly/README.md)
 
-More daily lessons should follow the same contract: concept notes, mental model, commands, hands-on lab, break/fix, expected outcome, and interview Q&A.
-
-## Existing Deep Dives
-
-- [Terraform State Management](./deep-dives/terraform-state-management.md)
-- [Terraform Modules](./deep-dives/terraform-modules.md)
-
-## Existing Exercises
-
-- [Basics Practice](./exercises/01-basics-practice.md)
-- [Networking Practice](./exercises/02-networking-practice.md)
-- [Security Practice](./exercises/03-security-practice.md)
+## Labs
+- [Lab Standards](./labs/README.md)
 
 ## Diagrams
+- [Diagram Standards](./diagrams/README.md)
+- [Learning Map](./diagrams/terraform-learning-map.md)
+- [Core Workflow](./diagrams/terraform-core-workflow.md)
+- [Remote State](./diagrams/remote-state-s3.md)
+- [Production Pipeline](./diagrams/production-terraform-pipeline.md)
+- [AWS Reference Architecture](./diagrams/aws-terraform-reference-architecture.md)
 
-- [Terraform Core Workflow](./diagrams/terraform-core-workflow.md)
-- [Remote State with S3](./diagrams/remote-state-s3.md)
-- [State Management Detailed](./diagrams/state-management-detailed.md)
-- [Module Patterns](./diagrams/module-patterns.md)
-- [CI/CD Pipeline](./diagrams/cicd-pipeline.md)
+## Projects
+- [Production Project Ladder](./projects/README.md)
+- Project 1: Static Website
+- Project 2: ECS Platform
+- Project 3: Multi-Account Platform
+- Project 4: Enterprise Reference Platform
+
+## Existing Material
+- [Terraform Learning Plan](./Terraform_Learning_Plan.md)
+- [Existing Deep Dives](./deep-dives/)
+- [Existing Exercises](./exercises/)
 
 ## References
-
 - [CLI Cheat Sheet](./references/terraform-command-cheatsheet.md)
 - [Interview Bank](./references/terraform-interview-bank.md)
 
-## Projects
+## Learning Rule
 
-The recommended progression is:
-
-**Static Website → ECS Platform → Multi-Account Foundation → Enterprise Reference Platform**
-
-See [PROJECTS.md](./PROJECTS.md) for architecture and production criteria.
-
-## Current Architecture Principle
-
-The course deliberately teaches current Terraform practices. In particular, the current HashiCorp S3 backend documentation describes native S3 locking with `use_lockfile = true`, while DynamoDB-based locking is deprecated; bucket versioning is recommended for recovery. citeturn726687search0
-
+Do not move to the next phase because you finished reading. Move when you can build, explain, break, fix and defend the current topic.
