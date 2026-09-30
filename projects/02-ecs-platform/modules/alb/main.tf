@@ -1,11 +1,23 @@
-variable "name" { type = string }
-variable "vpc_id" { type = string }
-variable "public_subnets" { type = list(string) }
+variable "name" {
+  type = string
+}
+
+variable "vpc_id" {
+  type = string
+}
+
+variable "public_subnets" {
+  type = list(string)
+}
+
 variable "certificate_arn" {
   type    = string
   default = null
 }
-variable "container_port" { type = number }
+
+variable "container_port" {
+  type = number
+}
 
 resource "aws_security_group" "this" {
   name   = "${var.name}-alb"
@@ -21,6 +33,7 @@ resource "aws_security_group" "this" {
 
   dynamic "ingress" {
     for_each = var.certificate_arn == null ? [] : [1]
+
     content {
       description = "HTTPS"
       protocol = "tcp"
@@ -39,51 +52,54 @@ resource "aws_security_group" "this" {
 }
 
 resource "aws_lb" "this" {
-  name = substr("${var.name}-alb", 0, 32)
+  name               = substr("${var.name}-alb", 0, 32)
   load_balancer_type = "application"
-  internal = false
-  subnets = var.public_subnets
-  security_groups = [aws_security_group.this.id]
+  internal           = false
+  subnets            = var.public_subnets
+  security_groups    = [aws_security_group.this.id]
 }
 
 resource "aws_lb_target_group" "this" {
-  name = substr("${var.name}-tg", 0, 32)
-  port = var.container_port
-  protocol = "HTTP"
+  name        = substr("${var.name}-tg", 0, 32)
+  port        = var.container_port
+  protocol    = "HTTP"
   target_type = "ip"
-  vpc_id = var.vpc_id
+  vpc_id      = var.vpc_id
 
   health_check {
-    enabled = true
-    path = "/"
-    matcher = "200-399"
-    interval = 30
-    timeout = 5
-    healthy_threshold = 2
+    enabled             = true
+    path                = "/"
+    matcher             = "200-399"
+    interval             = 30
+    timeout              = 5
+    healthy_threshold   = 2
     unhealthy_threshold = 3
   }
 }
 
 resource "aws_lb_listener" "http" {
   load_balancer_arn = aws_lb.this.arn
-  port = 80
-  protocol = "HTTP"
+  port              = 80
+  protocol          = "HTTP"
 
   dynamic "default_action" {
     for_each = var.certificate_arn == null ? [1] : []
+
     content {
-      type = "forward"
+      type             = "forward"
       target_group_arn = aws_lb_target_group.this.arn
     }
   }
 
   dynamic "default_action" {
     for_each = var.certificate_arn == null ? [] : [1]
+
     content {
       type = "redirect"
+
       redirect {
-        port = "443"
-        protocol = "HTTPS"
+        port        = "443"
+        protocol    = "HTTPS"
         status_code = "HTTP_301"
       }
     }
@@ -92,18 +108,30 @@ resource "aws_lb_listener" "http" {
 
 resource "aws_lb_listener" "https" {
   count = var.certificate_arn == null ? 0 : 1
+
   load_balancer_arn = aws_lb.this.arn
-  port = 443
-  protocol = "HTTPS"
-  certificate_arn = var.certificate_arn
+  port              = 443
+  protocol          = "HTTPS"
+  certificate_arn   = var.certificate_arn
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.this.arn
   }
 }
 
-output "load_balancer_arn" { value = aws_lb.this.arn }
-output "load_balancer_dns_name" { value = aws_lb.this.dns_name }
-output "target_group_arn" { value = aws_lb_target_group.this.arn }
-output "security_group_id" { value = aws_security_group.this.id }
+output "load_balancer_arn" {
+  value = aws_lb.this.arn
+}
+
+output "load_balancer_dns_name" {
+  value = aws_lb.this.dns_name
+}
+
+output "target_group_arn" {
+  value = aws_lb_target_group.this.arn
+}
+
+output "security_group_id" {
+  value = aws_security_group.this.id
+}
