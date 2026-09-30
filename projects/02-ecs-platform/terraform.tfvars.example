@@ -1,0 +1,14 @@
+aws_region       = "us-east-1"
+project          = "ecs-platform"
+environment      = "dev"
+owner            = "platform-team"
+vpc_cidr         = "10.40.0.0/16"
+container_image  = "public.ecr.aws/docker/library/nginx:alpine"
+container_port   = 80
+desired_count    = 2
+min_capacity     = 2
+max_capacity     = 4
+single_nat_gateway = true
+db_instance_class = "db.t4g.micro"
+db_name          = "appdb"
+db_username      = "appadmin"
