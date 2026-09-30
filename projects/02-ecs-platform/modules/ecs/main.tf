@@ -1,13 +1,42 @@
-variable "name" { type = string }
-variable "vpc_id" { type = string }
-variable "private_subnets" { type = list(string) }
-variable "alb_security_group_id" { type = string }
-variable "target_group_arn" { type = string }
-variable "container_image" { type = string }
-variable "container_port" { type = number }
-variable "desired_count" { type = number }
-variable "min_capacity" { type = number }
-variable "max_capacity" { type = number }
+variable "name" {
+  type = string
+}
+
+variable "vpc_id" {
+  type = string
+}
+
+variable "private_subnets" {
+  type = list(string)
+}
+
+variable "alb_security_group_id" {
+  type = string
+}
+
+variable "target_group_arn" {
+  type = string
+}
+
+variable "container_image" {
+  type = string
+}
+
+variable "container_port" {
+  type = number
+}
+
+variable "desired_count" {
+  type = number
+}
+
+variable "min_capacity" {
+  type = number
+}
+
+variable "max_capacity" {
+  type = number
+}
 
 resource "aws_cloudwatch_log_group" "app" {
   name              = "/ecs/${var.name}/app"
@@ -16,6 +45,7 @@ resource "aws_cloudwatch_log_group" "app" {
 
 resource "aws_ecs_cluster" "this" {
   name = var.name
+
   setting {
     name  = "containerInsights"
     value = "enabled"
@@ -146,6 +176,7 @@ resource "aws_appautoscaling_policy" "cpu" {
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageCPUUtilization"
     }
+
     target_value       = 60
     scale_in_cooldown  = 120
     scale_out_cooldown = 60
@@ -163,15 +194,33 @@ resource "aws_appautoscaling_policy" "memory" {
     predefined_metric_specification {
       predefined_metric_type = "ECSServiceAverageMemoryUtilization"
     }
+
     target_value       = 70
     scale_in_cooldown  = 120
     scale_out_cooldown = 60
   }
 }
 
-output "cluster_name" { value = aws_ecs_cluster.this.name }
-output "service_name" { value = aws_ecs_service.app.name }
-output "security_group_id" { value = aws_security_group.tasks.id }
-output "task_role_arn" { value = aws_iam_role.task.arn }
-output "execution_role_arn" { value = aws_iam_role.execution.arn }
-output "log_group_name" { value = aws_cloudwatch_log_group.app.name }
+output "cluster_name" {
+  value = aws_ecs_cluster.this.name
+}
+
+output "service_name" {
+  value = aws_ecs_service.app.name
+}
+
+output "security_group_id" {
+  value = aws_security_group.tasks.id
+}
+
+output "task_role_arn" {
+  value = aws_iam_role.task.arn
+}
+
+output "execution_role_arn" {
+  value = aws_iam_role.execution.arn
+}
+
+output "log_group_name" {
+  value = aws_cloudwatch_log_group.app.name
+}
