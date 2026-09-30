@@ -13,6 +13,6 @@ module "alb" {
   name            = local.name
   vpc_id          = module.vpc.vpc_id
   public_subnets  = module.vpc.public_subnet_ids
-  certificate_arn = null
+  certificate_arn = var.certificate_arn
   container_port  = var.container_port
 }
