@@ -8,15 +8,21 @@ on:
 permissions:
   contents: read
 
+env:
+  TF_IN_AUTOMATION: "true"
+
 jobs:
   terraform:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v7
 
       - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: 1.16.1
+          terraform_wrapper: false
 
       - name: Format check
         run: terraform fmt -check -recursive
@@ -24,30 +30,30 @@ jobs:
       - name: Validate local lab
         working-directory: labs/00-local-basics
         run: |
-          terraform init -backend=false
+          terraform init -backend=false -input=false
           terraform validate
           terraform test
 
       - name: Validate AWS lab
         working-directory: labs/01-s3-static-data
         run: |
-          terraform init -backend=false
+          terraform init -backend=false -input=false
           terraform validate
 
       - name: Validate state bootstrap
         working-directory: projects/00-state-bootstrap
         run: |
-          terraform init -backend=false
+          terraform init -backend=false -input=false
           terraform validate
 
       - name: Validate static site
         working-directory: projects/01-static-site
         run: |
-          terraform init -backend=false
+          terraform init -backend=false -input=false
           terraform validate
 
       - name: Validate ECS platform
         working-directory: projects/02-ecs-platform
         run: |
-          terraform init -backend=false
+          terraform init -backend=false -input=false
           terraform validate
