@@ -11,6 +11,10 @@ Skills: S3 security, CloudFront Origin Access Control, HTTPS redirect, objects, 
 Architecture: Internet → ALB → ECS/Fargate → private RDS; ECR, Secrets Manager, IAM, CloudWatch and autoscaling support the workload.
 Skills: networking, security groups, ECS, ALB, ECR, RDS, Secrets Manager, IAM, autoscaling, state and CI validation.
 
+## Project 03 — Production EKS Platform
+Architecture: Internet → AWS Load Balancer Controller → ALB → EKS managed node groups in private subnets; ECR provides images and AWS integrations provide workload identity, observability and secrets patterns.
+Skills: EKS, VPC, managed node groups, EKS access entries, Kubernetes providers, Helm, ECR, AWS Load Balancer Controller, autoscaling, workload identity, security and operations.
+
 ## Advanced expansion track
 The curriculum documents multi-account, multi-region, landing-zone, policy-as-code, cost, DR and enterprise governance patterns. These remain advanced design exercises until they can be implemented against real account/organization boundaries.
 
@@ -27,3 +31,4 @@ The curriculum documents multi-account, multi-region, landing-zone, policy-as-co
 - [x] CI workflow
 - [x] Remote-state bootstrap
 - [x] Teardown procedure
+- [x] EKS platform foundation
