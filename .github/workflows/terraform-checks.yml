@@ -26,9 +26,28 @@ jobs:
         run: |
           terraform init -backend=false
           terraform validate
+          terraform test
 
       - name: Validate AWS lab
         working-directory: labs/01-s3-static-data
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: Validate state bootstrap
+        working-directory: projects/00-state-bootstrap
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: Validate static site
+        working-directory: projects/01-static-site
+        run: |
+          terraform init -backend=false
+          terraform validate
+
+      - name: Validate ECS platform
+        working-directory: projects/02-ecs-platform
         run: |
           terraform init -backend=false
           terraform validate
