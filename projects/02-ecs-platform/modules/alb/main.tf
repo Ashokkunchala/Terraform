@@ -25,9 +25,9 @@ resource "aws_security_group" "this" {
 
   ingress {
     description = "HTTP"
-    protocol = "tcp"
-    from_port = 80
-    to_port = 80
+    protocol    = "tcp"
+    from_port   = 80
+    to_port     = 80
     cidr_blocks = ["0.0.0.0/0"]
   }
 
@@ -36,17 +36,17 @@ resource "aws_security_group" "this" {
 
     content {
       description = "HTTPS"
-      protocol = "tcp"
-      from_port = 443
-      to_port = 443
+      protocol    = "tcp"
+      from_port   = 443
+      to_port     = 443
       cidr_blocks = ["0.0.0.0/0"]
     }
   }
 
   egress {
-    protocol = "-1"
-    from_port = 0
-    to_port = 0
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
@@ -70,8 +70,8 @@ resource "aws_lb_target_group" "this" {
     enabled             = true
     path                = "/"
     matcher             = "200-399"
-    interval             = 30
-    timeout              = 5
+    interval            = 30
+    timeout             = 5
     healthy_threshold   = 2
     unhealthy_threshold = 3
   }
