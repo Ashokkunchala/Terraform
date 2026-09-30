@@ -82,7 +82,7 @@ Stored in a shared, durable storage system with features like:
 #### Popular Backends:
 | Backend | Locking | Versioning | Encryption | Best For |
 |---------|---------|------------|------------|----------|
-| **Amazon S3 + DynamoDB** | Yes (via DynamoDB) | Yes (S3 Versioning) | Yes (S3 SSE) | AWS environments |
+| **Amazon S3** | Yes (via DynamoDB) | Yes (S3 Versioning) | Yes (S3 SSE) | AWS environments |
 | **Azure Blob Storage** | Yes (via Blob Leases) | Yes | Yes | Azure environments |
 | **Google Cloud Storage** | Yes (via Object Lock) | Yes | Yes | GCP environments |
 | **HashiCorp Consul** | Yes (via Consul Sessions) | Limited | Yes | HashiCorp ecosystems |
@@ -90,7 +90,7 @@ Stored in a shared, durable storage system with features like:
 | **Alibaba Cloud OSS** | Yes (via OSS Lock) | Yes | Yes | Alibaba Cloud |
 | **Kubernetes** | Yes (via ConfigMaps) | Limited | Yes | Kubernetes-native |
 
-### Backend Configuration Example (S3 + DynamoDB):
+### Backend Configuration Example (S3):
 
 ```hcl
 terraform {
@@ -99,7 +99,7 @@ terraform {
     key            = "prod/networking/terraform.tfstate"
     region         = "us-east-1"
     encrypt        = true
-    dynamodb_table = "terraform-locks"
+    use_lockfile = true
   }
 }
 ```
@@ -241,7 +241,7 @@ terraform state backup backup.tfstate
 ## Hands-on Exercises
 
 ### Exercise 1: Setting up Remote State
-**Objective**: Configure S3 backend with DynamoDB locking
+**Objective**: Configure S3 backend with S3-native locking
 
 **Steps**:
 1. Create an S3 bucket for state storage
@@ -333,4 +333,6 @@ terraform apply  # Will return resource to codified state
 
 ---
 
-*Updated: September 20, 2026*
+*Updated: October 1, 2026*
+
+> Modernization note: The S3 backend supports native state locking with `use_lockfile = true`. DynamoDB-based locking is deprecated in current HashiCorp guidance, although it remains documented for migration from older setups. See the current S3 backend documentation.
