@@ -74,7 +74,7 @@ The ECS platform includes VPC, private networking, ALB, ECR, ECS/Fargate, autosc
 
 ## CI quality gates
 
-GitHub Actions runs recursive formatting and validation for every executable lab/project and runs the native Terraform test for the local lab.
+GitHub Actions runs recursive formatting and validation for every executable lab/project and runs the native Terraform test for the local lab. CI uses Terraform 1.16.1 for a reproducible CLI baseline.
 
 ## State and secrets
 
