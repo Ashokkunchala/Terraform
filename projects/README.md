@@ -1,15 +1,18 @@
 # Production Project Ladder
 
-## Project 1
-Secure static website: S3 + CloudFront + ACM + Route 53.
+The executable project track is now implemented through the core AWS platform path.
 
-## Project 2
-Production ECS platform: VPC + ALB + ECR + ECS/Fargate + RDS + Secrets Manager + autoscaling.
+## Project 00 — Remote State Bootstrap
+S3 state bucket with versioning, encryption, public-access blocking, and an S3-native locking backend example.
 
-## Project 3
-Multi-account platform foundation: provider aliases + role assumption + isolated state + governance.
+## Project 01 — Secure Static Website
+Private S3 + CloudFront Origin Access Control + HTTPS viewer redirect.
 
-## Project 4
-Enterprise reference platform: multi-region, private modules, CI/CD, policy, cost, DR and operational runbooks.
+## Project 02 — ECS/Fargate Platform
+Two-AZ VPC + ALB + ECR + ECS/Fargate + autoscaling + RDS MySQL + Secrets Manager + CloudWatch Logs.
 
-Every project must include architecture, README, module contracts, tests, security scan, cost review, CI workflow, recovery runbook and teardown instructions.
+## Next expansion tracks
+
+The 60-day curriculum contains the design material for multi-account, multi-region, landing-zone, policy-as-code, cost engineering, and disaster recovery topics. Those topics should be added as separate executable projects when real AWS account/organization boundaries are available rather than pretending a single-account example is an enterprise implementation.
+
+Every executable project includes architecture, deployment steps, security considerations, cost considerations, validation, and teardown guidance.
