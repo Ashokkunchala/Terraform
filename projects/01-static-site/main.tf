@@ -10,6 +10,7 @@ variable "project" {
 
 provider "aws" {
   region = var.aws_region
+
   default_tags {
     tags = {
       Project   = var.project
@@ -26,6 +27,7 @@ resource "aws_s3_bucket" "site" {
 
 resource "aws_s3_bucket_public_access_block" "site" {
   bucket = aws_s3_bucket.site.id
+
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
@@ -34,7 +36,10 @@ resource "aws_s3_bucket_public_access_block" "site" {
 
 resource "aws_s3_bucket_versioning" "site" {
   bucket = aws_s3_bucket.site.id
-  versioning_configuration { status = "Enabled" }
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_object" "index" {
@@ -72,12 +77,17 @@ resource "aws_cloudfront_distribution" "site" {
 
     forwarded_values {
       query_string = false
-      cookies { forward = "none" }
+
+      cookies {
+        forward = "none"
+      }
     }
   }
 
   restrictions {
-    geo_restriction { restriction_type = "none" }
+    geo_restriction {
+      restriction_type = "none"
+    }
   }
 
   viewer_certificate {
@@ -89,12 +99,15 @@ data "aws_iam_policy_document" "bucket" {
   statement {
     sid    = "AllowCloudFrontRead"
     effect = "Allow"
+
     principals {
       type        = "Service"
       identifiers = ["cloudfront.amazonaws.com"]
     }
+
     actions   = ["s3:GetObject"]
     resources = ["${aws_s3_bucket.site.arn}/*"]
+
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
