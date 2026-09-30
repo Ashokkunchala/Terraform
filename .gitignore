@@ -10,7 +10,7 @@ crash.*.log
 # Local secrets and variables
 *.tfvars
 *.tfvars.json
-!.example.tfvars
+!terraform.tfvars.example
 .env
 .env.*
 
