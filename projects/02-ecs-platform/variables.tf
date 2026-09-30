@@ -32,6 +32,12 @@ variable "vpc_cidr" {
   default     = "10.40.0.0/16"
 }
 
+variable "certificate_arn" {
+  description = "Optional ACM certificate ARN. When supplied, HTTP redirects to HTTPS."
+  type        = string
+  default     = null
+}
+
 variable "container_image" {
   description = "Container image URI. Use an ECR URI for production; nginx is a safe default for the first deployment."
   type        = string
