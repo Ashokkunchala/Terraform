@@ -1,0 +1,21 @@
+# Terraform state and working directories
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfplan.json
+crash.log
+crash.*.log
+
+# Local secrets and variables
+*.tfvars
+*.tfvars.json
+!.example.tfvars
+.env
+.env.*
+
+# Editor / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
