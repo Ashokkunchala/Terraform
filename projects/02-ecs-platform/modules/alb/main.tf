@@ -1,7 +1,10 @@
 variable "name" { type = string }
 variable "vpc_id" { type = string }
 variable "public_subnets" { type = list(string) }
-variable "certificate_arn" { type = string, default = null }
+variable "certificate_arn" {
+  type    = string
+  default = null
+}
 variable "container_port" { type = number }
 
 resource "aws_security_group" "this" {
@@ -49,6 +52,7 @@ resource "aws_lb_target_group" "this" {
   protocol = "HTTP"
   target_type = "ip"
   vpc_id = var.vpc_id
+
   health_check {
     enabled = true
     path = "/"
