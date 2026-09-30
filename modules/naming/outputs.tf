@@ -1,4 +1,4 @@
 output "prefix" {
   description = "Stable resource name prefix."
-  value = local.prefix
+  value       = local.prefix
 }
