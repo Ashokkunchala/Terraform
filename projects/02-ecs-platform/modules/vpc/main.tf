@@ -7,7 +7,7 @@ resource "aws_vpc" "this" {
   cidr_block           = var.vpc_cidr
   enable_dns_support   = true
   enable_dns_hostnames = true
-  tags = { Name = var.name }
+  tags                 = { Name = var.name }
 }
 
 resource "aws_subnet" "public" {
@@ -34,10 +34,7 @@ resource "aws_internet_gateway" "this" {
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.this.id
-  }
+  route { cidr_block = "0.0.0.0/0" gateway_id = aws_internet_gateway.this.id }
   tags = { Name = "${var.name}-public" }
 }
 
@@ -48,7 +45,7 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_eip" "nat" {
-  for_each = var.single_nat_gateway ? { one = 0 } : { for i, az in var.availability_zones : az => i }
+  for_each = var.single_nat_gateway ? { one = var.availability_zones[0] } : { for az in var.availability_zones : az => az }
   domain = "vpc"
   tags = { Name = "${var.name}-nat-${each.key}" }
 }
@@ -56,7 +53,7 @@ resource "aws_eip" "nat" {
 resource "aws_nat_gateway" "this" {
   for_each = aws_eip.nat
   allocation_id = each.value.id
-  subnet_id = aws_subnet.public[var.availability_zones[each.value.tags.Name == "" ? 0 : 0]].id
+  subnet_id = aws_subnet.public[each.value].id
   tags = { Name = "${var.name}-nat-${each.key}" }
   depends_on = [aws_internet_gateway.this]
 }
