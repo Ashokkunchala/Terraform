@@ -2,64 +2,103 @@
 
 A hands-on Terraform + AWS engineering repository for learning, building, testing, securing, and operating infrastructure.
 
-This repository combines a structured 60-day curriculum with real executable Terraform labs and production-style project blueprints.
+The repository combines a 60-day curriculum with executable labs and complete reference projects. The learning material remains useful as the theory track; the projects are the implementation track.
 
-## Repository map
-- [60-day curriculum](./days/)
-- [Hands-on labs](./labs/)
-- [Production projects](./projects/)
-- [Reusable modules](./modules/)
-- [Deep dives](./deep-dives/)
-- [Diagrams](./diagrams/)
-- [References](./references/)
+## Quick start
 
-## Start with the executable path
-1. [Lab 00: Local Terraform Basics](./labs/00-local-basics/README.md)
-2. [Lab 01: Secure S3 Foundation](./labs/01-s3-static-data/README.md)
-3. [Project 01: Secure Static Website](./projects/01-static-site/README.md)
-4. [Project 02: Production ECS/Fargate Platform](./projects/02-ecs-platform/README.md)
-5. Continue with the [60-day curriculum](./days/)
-
-## Engineering workflow
+### 1. Cloud-free fundamentals
 
 ```bash
-terraform fmt -recursive
-terraform init -backend=false
+cd labs/00-local-basics
+terraform init
+terraform fmt
+terraform validate
+terraform test
+terraform plan
+```
+
+### 2. Secure AWS S3 lab
+
+```bash
+cd labs/01-s3-static-data
+# create an untracked terraform.tfvars with bucket_name
+terraform init
 terraform validate
 terraform plan
 terraform apply
 terraform destroy
 ```
 
-For AWS labs, confirm the active identity first:
+### 3. Remote state bootstrap
 
 ```bash
-aws sts get-caller-identity
+cd projects/00-state-bootstrap
+terraform init
+terraform apply -var='bucket_name=YOUR-UNIQUE-BUCKET'
+terraform output backend_example
 ```
 
-Never commit credentials, secret tfvars, Terraform state, plan files, or .terraform directories.
+### 4. Static website
 
-## State
-Team environments should use a remote backend with restricted IAM access, S3 versioning, and state locking. Current HashiCorp guidance supports S3-native locking with use_lockfile = true; legacy DynamoDB-based locking is deprecated.
+```bash
+cd projects/01-static-site
+terraform init
+terraform apply
+terraform output cloudfront_url
+```
 
-See [state management](./deep-dives/terraform-state-management.md).
+### 5. ECS/Fargate platform
 
-## Learning method
-Learn -> Read code -> Run plan -> Apply in a sandbox -> Break it -> Diagnose -> Test -> Document -> Commit
+```bash
+cd projects/02-ecs-platform
+cp terraform.tfvars.example terraform.tfvars
+terraform init
+terraform validate
+terraform plan
+terraform apply
+terraform output load_balancer_url
+```
+
+The ECS platform includes VPC, private networking, ALB, ECR, ECS/Fargate, autoscaling, RDS MySQL, managed Secrets Manager credentials, CloudWatch Logs, deployment rollback, and optional HTTPS.
+
+## Repository map
+
+- [60-day curriculum](./days/) — progressive Terraform learning.
+- [Labs](./labs/) — small runnable exercises.
+- [Projects](./projects/) — end-to-end AWS implementations.
+- [Modules](./modules/) — reusable module contracts.
+- [Deep dives](./deep-dives/) — advanced Terraform design.
+- [Exercises](./exercises/) — practice questions and scenarios.
+- [Diagrams](./diagrams/) — architecture and state workflows.
+- [References](./references/) — commands and interview preparation.
+
+## CI quality gates
+
+GitHub Actions runs recursive formatting and validation for every executable lab/project and runs the native Terraform test for the local lab.
+
+## State and secrets
+
+Use a dedicated remote state bucket for shared environments. The state bootstrap project enables versioning, public-access blocking, and encryption. Generated backend examples use S3-native locking with `use_lockfile = true`.
+
+Never commit credentials, secret `.tfvars`, Terraform state, plan files, or `.terraform` directories.
+
+## Engineering method
+
+**Learn → Read code → Plan → Apply in a sandbox → Break it → Diagnose → Test → Document → Commit**
 
 ## Production checklist
-- [ ] Version constraints
-- [ ] Remote state strategy
-- [ ] Least-privilege CI identity
-- [ ] Input validation
-- [ ] Encryption
-- [ ] Tags
-- [ ] Format + validate
-- [ ] Lint/security checks
-- [ ] Plan review
-- [ ] Tests
-- [ ] Cost review
-- [ ] Recovery runbook
-- [ ] Teardown procedure
 
-The original 60-day learning material remains intact; this rework adds an executable engineering layer around it.
+- [ ] Remote state and locking
+- [ ] Least-privilege IAM
+- [ ] Encryption
+- [ ] Input validation
+- [ ] Standard tags
+- [ ] Format + validate + test
+- [ ] Security scanning
+- [ ] Cost controls
+- [ ] Plan review
+- [ ] Monitoring and alarms
+- [ ] Backup and recovery
+- [ ] Disaster recovery procedure
+- [ ] Teardown procedure
+- [ ] Provider upgrade process
