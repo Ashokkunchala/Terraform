@@ -34,7 +34,12 @@ resource "aws_internet_gateway" "this" {
 
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.this.id
-  route { cidr_block = "0.0.0.0/0" gateway_id = aws_internet_gateway.this.id }
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.this.id
+  }
+
   tags = { Name = "${var.name}-public" }
 }
 
@@ -61,10 +66,12 @@ resource "aws_nat_gateway" "this" {
 resource "aws_route_table" "private" {
   for_each = aws_subnet.private
   vpc_id = aws_vpc.this.id
+
   route {
     cidr_block = "0.0.0.0/0"
     nat_gateway_id = var.single_nat_gateway ? aws_nat_gateway.this["one"].id : aws_nat_gateway.this[each.key].id
   }
+
   tags = { Name = "${var.name}-private-${each.key}" }
 }
 
