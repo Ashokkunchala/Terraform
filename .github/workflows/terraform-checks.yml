@@ -57,3 +57,9 @@ jobs:
         run: |
           terraform init -backend=false -input=false
           terraform validate
+
+      - name: Validate EKS platform
+        working-directory: projects/03-eks-platform
+        run: |
+          terraform init -backend=false -input=false
+          terraform validate
