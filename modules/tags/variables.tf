@@ -1,20 +1,20 @@
 variable "project" {
   description = "Project name."
-  type = string
+  type        = string
 }
 
 variable "environment" {
   description = "Environment name."
-  type = string
+  type        = string
 }
 
 variable "owner" {
   description = "Owning team or person."
-  type = string
+  type        = string
 }
 
 variable "extra" {
   description = "Additional tags."
-  type = map(string)
-  default = {}
+  type        = map(string)
+  default     = {}
 }
