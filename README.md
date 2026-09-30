@@ -1,58 +1,65 @@
-# Terraform Mastery Lab
+# Terraform Engineering Lab
 
-A complete **60-day Terraform learning program** from zero to production-level AWS Terraform engineering.
+A hands-on Terraform + AWS engineering repository for learning, building, testing, securing, and operating infrastructure.
 
-## Start Here
+This repository combines a structured 60-day curriculum with real executable Terraform labs and production-style project blueprints.
 
-1. [60-Day Calendar](./CALENDAR.md)
-2. [Complete Syllabus](./SYLLABUS.md)
-3. [Study Method](./STUDY_METHOD.md)
-4. [Day 01](./days/day-01-foundations.md)
-5. [Day 02](./days/day-02-cli-workflow.md)
-6. Continue through [Day 60](./days/day-60-capstone-3-and-interview-bootcamp.md)
+## Repository map
+- [60-day curriculum](./days/)
+- [Hands-on labs](./labs/)
+- [Production projects](./projects/)
+- [Reusable modules](./modules/)
+- [Deep dives](./deep-dives/)
+- [Diagrams](./diagrams/)
+- [References](./references/)
 
-## Course Method
+## Start with the executable path
+1. [Lab 00: Local Terraform Basics](./labs/00-local-basics/README.md)
+2. [Lab 01: Secure S3 Foundation](./labs/01-s3-static-data/README.md)
+3. [Project 01: Secure Static Website](./projects/01-static-site/README.md)
+4. [Project 02: Production ECS/Fargate Platform](./projects/02-ecs-platform/README.md)
+5. Continue with the [60-day curriculum](./days/)
 
-**Learn → Notes → Example → Practical → Break/Fix → Test → Diagram → Interview Q&A → Git**
+## Engineering workflow
 
-Every day contains a learning objective, notes, example, hands-on exercise, production checklist, troubleshooting challenge and interview questions.
+```bash
+terraform fmt -recursive
+terraform init -backend=false
+terraform validate
+terraform plan
+terraform apply
+terraform destroy
+```
 
-## Curriculum
+For AWS labs, confirm the active identity first:
 
-| Phase | Days | Focus |
-|---|---:|---|
-| Foundations | 1–6 | Terraform, HCL, CLI, providers, resources |
-| Language | 7–12 | Variables, types, expressions, loops, functions |
-| Engine & State | 13–18 | Data sources, graph, state, remote state, state operations |
-| Modules & Migration | 19–24 | Environments, modules, versioning, moved, import |
-| AWS Networking | 25–30 | VPC, NAT, endpoints, security, IAM, EC2, ALB |
-| AWS Services | 31–36 | ASG, S3, RDS, Lambda, DNS/TLS, ECR |
-| Containers & Quality | 37–42 | ECS, EKS, CI/CD, testing |
-| Production Controls | 43–48 | Security, policy, cost, secrets, drift, lifecycle |
-| Enterprise | 49–54 | Upgrades, multi-account, multi-region, governance |
-| Capstones | 55–60 | DR, troubleshooting, reviews, projects, interviews |
+```bash
+aws sts get-caller-identity
+```
 
-## Visual Learning
+Never commit credentials, secret tfvars, Terraform state, plan files, or .terraform directories.
 
-See [Diagrams](./diagrams/README.md) for Mermaid architecture and workflow diagrams.
+## State
+Team environments should use a remote backend with restricted IAM access, S3 versioning, and state locking. Current HashiCorp guidance supports S3-native locking with use_lockfile = true; legacy DynamoDB-based locking is deprecated.
 
-## Production Projects
+See [state management](./deep-dives/terraform-state-management.md).
 
-See [Projects](./projects/README.md).
+## Learning method
+Learn -> Read code -> Run plan -> Apply in a sandbox -> Break it -> Diagnose -> Test -> Document -> Commit
 
-1. Secure static website.
-2. Production ECS platform.
-3. Multi-account platform foundation.
-4. Enterprise reference platform.
+## Production checklist
+- [ ] Version constraints
+- [ ] Remote state strategy
+- [ ] Least-privilege CI identity
+- [ ] Input validation
+- [ ] Encryption
+- [ ] Tags
+- [ ] Format + validate
+- [ ] Lint/security checks
+- [ ] Plan review
+- [ ] Tests
+- [ ] Cost review
+- [ ] Recovery runbook
+- [ ] Teardown procedure
 
-## Lab Rules
-
-See [Labs](./labs/README.md). Use a sandbox AWS account, budgets, cleanup procedures and never commit credentials or state.
-
-## Current Terraform Principles
-
-Terraform configuration is made of top-level .tf files in a module; nested directories are separate modules. citeturn0search4turn0search5
-
-Modules are reusable collections of resources. HashiCorp recommends keeping module trees relatively flat and using composition instead of unnecessary deep nesting. citeturn0search3turn0search7
-
-The AWS provider is maintained in the Terraform Registry; check the current provider release before selecting a production version constraint. citeturn0search2
+The original 60-day learning material remains intact; this rework adds an executable engineering layer around it.
