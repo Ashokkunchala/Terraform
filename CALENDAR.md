@@ -15,7 +15,7 @@
 | 7 | 37–42 | Production Engineering | Remote state, environments, CI/CD, testing, linting, security, policy, cost |
 | 8 | 43–48 | Operations | Drift, import, moved blocks, lifecycle, recovery, debugging, upgrades, disaster recovery |
 | 9 | 49–54 | Enterprise | Multi-account, multi-region, provider aliases, landing zones, governance, private modules |
-| 10 | 55–60 | Capstones & Interviews | Production projects, architecture reviews, troubleshooting, scenario interviews || 10 | 55–60 | Capstones & Interviews | Production delivery + interview readiness |
+| 10 | 55–60 | Capstones & Interviews | Production delivery, architecture reviews, troubleshooting, and interview readiness |
 
 ## Weekly Rhythm
 
