@@ -102,3 +102,7 @@ Never commit credentials, secret `.tfvars`, Terraform state, plan files, or `.te
 - [ ] Disaster recovery procedure
 - [ ] Teardown procedure
 - [ ] Provider upgrade process
+
+## Engineering guide
+
+See [ENGINEERING_GUIDE.md](./ENGINEERING_GUIDE.md) for the recommended project sequence, validation commands, AWS safety checks, remote-state guidance, and the difference between CI validation and a real AWS deployment.
