@@ -103,6 +103,9 @@ Never commit credentials, secret `.tfvars`, Terraform state, plan files, or `.te
 - [ ] Teardown procedure
 - [ ] Provider upgrade process
 
-## Engineering guide
+## Learning project completion
 
-See [ENGINEERING_GUIDE.md](./ENGINEERING_GUIDE.md) for the recommended project sequence, validation commands, AWS safety checks, remote-state guidance, and the difference between CI validation and a real AWS deployment.
+- [Learning project status and completion criteria](./LEARNING_PROJECT_STATUS.md)
+- [Capstone runbook](./CAPSTONE_RUNBOOK.md) — commands, validation, runtime evidence, and teardown
+- [CI and security guide](./docs/CI_AND_SECURITY.md) — what CI proves, how to run scans, and how to remediate findings
+- [Engineering guide](./ENGINEERING_GUIDE.md) — recommended sequence, AWS safety, and remote-state guidance
