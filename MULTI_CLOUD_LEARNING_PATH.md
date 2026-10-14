@@ -6,6 +6,10 @@ Turn this repository into a portfolio and interview-preparation lab for Terrafor
 
 This is a learning path, not a claim that every cloud project has been deployed or production-certified. Execute cloud labs only in accounts/subscriptions/projects you own and can afford to use.
 
+## Daily practice routine
+
+Follow the [level-based daily practice plan](./DAILY_PRACTICE_LEVELS.md) for a 60–90 minute session, practice log, safe break/fix work, self-scoring, and weekly adjustment. The suggested seven sessions below are a starter cycle, not a deadline; repeat sessions until you can explain and troubleshoot the topic independently.
+
 ## How to use this track
 
 For each module:
