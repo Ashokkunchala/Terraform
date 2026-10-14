@@ -1,46 +1,43 @@
 # Complete Terraform Syllabus
 
 ## Foundations
-IaC, declarative model, Terraform architecture, CLI lifecycle, HCL, files, providers, resources, addresses, variables, locals and outputs.
+Infrastructure as Code, declarative model, Terraform architecture, CLI lifecycle, HCL, providers, resources, resource addresses, variables, locals, outputs and dependency graph.
 
-## Terraform Language
+## Terraform language
 Primitive and complex types, expressions, conditionals, for expressions, functions, dynamic blocks, meta-arguments, validation, preconditions and postconditions.
 
-## Terraform Engine
-Dependency graph, unknown values, planning, refresh, lifecycle, replacement, drift and resource addressing.
+## State and lifecycle
+Local/remote state, locking, encryption, versioning, migration, inspection, recovery, drift, import blocks, moved blocks, state operations and resource replacement.
 
-## State
-Local state, remote state, S3 backend, locking, encryption, versioning, migration, inspection, state surgery and recovery.
+## Modules and environments
+Module contracts, inputs/outputs, testing, versioning, registry, root/child modules, workspaces, separate environment roots and promotion models.
 
-## Environments
-Workspaces, directory-based environments, account boundaries, promotion models and environment-specific configuration.
+## AWS
+VPC, subnets, routes, NAT, endpoints, security groups, IAM, EC2, ALB, ASG, S3, RDS, Lambda, Route 53, ACM, ECR, ECS/Fargate and EKS.
 
-## Modules
-Root/child modules, contracts, inputs, outputs, composition, sources, versioning, registry, testing, documentation and release strategy.
+## Microsoft Azure
+Tenant/subscription/resource-group/resource hierarchy, AzureRM provider, Azure RBAC scopes, VNets, subnets, NSGs, storage accounts/containers, managed identities, remote state, naming constraints and policy.
 
-## Import and Refactoring
-Declarative import blocks, generated configuration, moved blocks, resource address migration and safe refactoring.
+## Google Cloud
+Organization/folder/project hierarchy, Google provider, service accounts and IAM, VPC networks, subnets, firewall rules, Cloud Storage, project/location scope, remote state and organization policy.
 
-## AWS Core
-VPC, CIDR, subnets, routes, NAT, endpoints, security groups, NACLs, IAM, EC2, ALB, ASG, S3, RDS, Lambda, Route 53, ACM and ECR.
+## Cross-cloud engineering
+Provider aliases, multiple identities, environment boundaries, shared module contracts, cloud-specific modules, state isolation, workload identity federation, cost controls, governance and operational trade-offs. Avoid abstractions that hide meaningful provider differences.
 
-## Containers
-ECS, Fargate, task definitions, services, ALB integration, IAM roles, autoscaling, logs and EKS fundamentals.
+## Production engineering
+GitHub Actions, plan/apply separation, approvals, Terraform tests, TFLint, Checkov, policy as code, cost estimation, secrets management, observability, backups and recovery.
 
-## Production Engineering
-GitHub Actions, plan/apply separation, approvals, terraform test, TFLint, Checkov, policy as code, cost estimation, secrets and observability.
+## Career readiness
+Architecture reviews, design trade-offs, troubleshooting scenarios, incident response and Terraform interview preparation.
 
-## Operations
-Drift detection, troubleshooting, upgrades, provider lock files, disaster recovery, state recovery, incident response and production code review.
+## Multi-cloud study assets
+- [Multi-cloud learning path](./MULTI_CLOUD_LEARNING_PATH.md)
+- [Multi-cloud interview bank](./references/multi-cloud-interview-bank.md)
+- [Multi-cloud design exercises](./exercises/04-multi-cloud-design.md)
+- [Azure storage lab runbook](./labs/02-azure-storage/README.md)
+- [Google Cloud storage lab runbook](./labs/03-gcp-storage/README.md)
 
-## Enterprise
-Multi-account, multi-region, provider aliases, landing zones, governance, centralized state and private module platforms.
-
-## Career
-Architecture reviews, design trade-offs, troubleshooting scenarios, incident questions, code reviews and Terraform interview preparation.
-
-Terraform configuration consists of top-level .tf files in a module; nested directories are separate modules. citeturn0search4turn0search5
-
-Modules are reusable collections of resources, and HashiCorp recommends avoiding unnecessarily deep module trees. citeturn0search3turn0search7
-
-The current AWS provider is maintained in the Terraform Registry; check its current version before pinning a production dependency. citeturn0search2
+Official provider references:
+- https://registry.terraform.io/providers/hashicorp/aws/latest/docs
+- https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs
+- https://registry.terraform.io/providers/hashicorp/google/latest/docs
