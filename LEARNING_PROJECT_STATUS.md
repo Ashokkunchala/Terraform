@@ -17,6 +17,8 @@ This is a learning repository, not a claim that every AWS architecture has been 
 
 ## Repository tracks
 
+| Daily practice | `DAILY_PRACTICE_LEVELS.md` | Daily log, level gates, independent build/validate/troubleshoot evidence |
+
 | Track | Location | Evidence |
 |---|---|---|
 | Fundamentals | `labs/00-local-basics` | `terraform test`, validate, plan |
