@@ -1,5 +1,7 @@
 # Daily Lesson Acceptance Standard
 
+Use the [Daily Practice Levels](./DAILY_PRACTICE_LEVELS.md) alongside this standard. Progress is mastery-based, not deadline-based: repeat a lesson when the exit criteria are not met, and review progress after the first seven practice sessions.
+
 Every daily lesson in `days/` should be completed using this checklist. A topic is not complete merely because its concept summary exists.
 
 ## Required lesson sections
