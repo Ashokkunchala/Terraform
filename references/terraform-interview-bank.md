@@ -1,6 +1,9 @@
 # Terraform Interview Bank
 
+This file covers Terraform fundamentals and core operations. For provider identity, AWS/Azure/GCP comparisons, remote state design and multi-cloud troubleshooting, continue to the [Multi-Cloud Terraform Interview Bank](./multi-cloud-interview-bank.md).
+
 ## Fundamentals
+
 ### 1. What is Terraform?
 A declarative infrastructure-as-code tool. You describe desired infrastructure and Terraform calculates actions to converge toward it.
 
@@ -11,9 +14,10 @@ Terraform evaluates configuration, state and relevant provider information to cr
 State maps Terraform-managed resource addresses to real infrastructure objects and supports change calculation.
 
 ### 4. Why use remote state?
-Teams need shared state storage and a concurrency strategy. Backends provide state storage and may provide locking. citeturn726687search1turn726687search2
+Teams need shared state storage and a concurrency strategy. Backends provide state storage and may provide locking.
 
 ## Intermediate
+
 ### 5. count vs for_each
 count uses numeric indexes; for_each uses stable keys.
 
@@ -30,8 +34,9 @@ When a real dependency exists but is not represented by an expression. Avoid unn
 Clear responsibility, explicit inputs/outputs, validation, versioning, minimal hidden behavior, documentation and tests.
 
 ## Advanced
+
 ### 10. How do you protect state?
-Use restricted backend access, encryption, versioning, least privilege, limited production access and tested recovery procedures. S3 guidance recommends bucket versioning for recovery. citeturn726687search0
+Use restricted backend access, encryption, versioning, least privilege, limited production access and tested recovery procedures.
 
 ### 11. How do you handle drift?
 Detect it, determine whether the out-of-band change is intentional, update configuration or reconcile infrastructure, then re-plan.
@@ -46,6 +51,7 @@ Formatting, validation, security/lint checks, tests, plan, policy/cost checks as
 Successful changes are recorded in state; diagnose the failure, inspect the next plan, fix the root cause and retry.
 
 ## Scenario Questions
+
 1. Production plan wants to replace a database. What do you inspect?
 2. A rename causes destroy/create. How do you avoid unnecessary replacement?
 3. Two engineers run apply simultaneously. What should protect concurrent state writes?
@@ -58,4 +64,5 @@ Successful changes are recorded in state; diagnose the failure, inspect the next
 10. CI plan passes but apply fails. What environmental differences could explain it?
 
 ## Answer Pattern
+
 **Definition → Why → Example → Trade-off → Production consideration**
