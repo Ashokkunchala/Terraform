@@ -1,90 +1,34 @@
 # Terraform Mastery Roadmap
 
 ## Goal
+Build the ability to design, implement, review, test, secure, automate, troubleshoot, refactor and operate Terraform across AWS, Microsoft Azure and Google Cloud. Learn provider-specific identity and resource models rather than assuming cloud services are interchangeable.
 
-Become able to design, implement, review, test, secure, automate, troubleshoot, refactor, and operate Terraform for AWS production environments.
+## Phase 1 — Foundations
+Terraform mental model, CLI lifecycle, HCL, providers, resources, typed variables, outputs, locals and state. Deliverable: explain and demonstrate init, fmt, validate, plan and apply without notes.
 
-## 45-Day Curriculum
+## Phase 2 — Core engineering
+Expressions, collections, for expressions, functions, data sources, dependency graph, modules, module versioning, import/moved blocks, testing, state recovery, drift and environments. Deliverable: reusable module, test, and safe refactor.
 
-### Phase 1 — Foundations
+## Phase 3 — AWS platform engineering
+Use the existing AWS labs/projects: VPC/subnets/routes, security groups, IAM, EC2, ALB, S3, RDS, ECR, ECS/Fargate, EKS, DNS/TLS, autoscaling, remote state and recovery. Deploy only in a disposable sandbox with cost controls; verify then tear down.
 
-| Day | Topic | Deliverable | Interview Focus |
-|---|---|---|---|
-| 01 | IaC + Terraform mental model | First configuration | Declarative vs imperative |
-| 02 | CLI workflow | init/fmt/validate/plan/apply/destroy lab | CLI behavior |
-| 03 | HCL syntax | Blocks, attributes, expressions | HCL structure |
-| 04 | Providers | AWS provider setup | Provider and aliases |
-| 05 | Resources | S3 lab | Resource addressing |
-| 06 | Variables + outputs | Typed module contract | Types, validation, sensitive |
-| 07 | State | State inspection lab | State, drift, locking |
+## Phase 4 — Azure foundations
+Follow [Azure storage lab](./labs/02-azure-storage/README.md). Learn tenant/subscription/resource group, AzureRM provider, naming/location constraints, Azure RBAC, storage security, remote state and cleanup.
 
-### Phase 2 — Core Engineering
+## Phase 5 — Google Cloud foundations
+Follow [GCP storage lab](./labs/03-gcp-storage/README.md). Learn organization/folder/project, service accounts, IAM bindings, Cloud Storage access controls, GCS backend, cost and cleanup.
 
-| Day | Topic | Deliverable | Interview Focus |
-|---|---|---|---|
-| 08 | Expressions | Conditions/operators | Evaluation |
-| 09 | Collections | map/list/set/object/tuple | Type constraints |
-| 10 | for expressions | Resource maps | for vs for_each |
-| 11 | Functions | Function laboratory | merge, try, coalesce, flatten |
-| 12 | Data sources | AMI/VPC/subnet discovery | Data vs resource |
-| 13 | Dependencies | Dependency graph lab | Implicit/explicit deps |
-| 14 | Modules | Reusable S3/VPC module | Module design/versioning |
+## Phase 6 — Multi-cloud production delivery
+Provider aliases, account/subscription/project boundaries, separate state roots, identity federation, CI plan/apply separation, policy/security checks, cost governance, provider upgrades and disaster recovery.
 
-### Phase 3 — AWS Networking & Compute
+## Phase 7 — Interview capstone
+Use the [multi-cloud interview bank](./references/multi-cloud-interview-bank.md) and [design exercises](./exercises/04-multi-cloud-design.md). Practice state-lock failure, drift, accidental replacement, wrong target cloud, CI identity failure, public storage, provider upgrade and failed deployment.
 
-| Day | Topic | Deliverable | Interview Focus |
-|---|---|---|---|
-| 15 | VPC | VPC/subnet/routes | CIDR design |
-| 16 | NAT + endpoints | Private egress | NAT vs endpoints |
-| 17 | IAM | Roles and policies | Trust vs permissions |
-| 18 | EC2 | Private compute | AMI and bootstrap |
-| 19 | ALB | Public ALB/private targets | Listeners/target groups |
-| 20 | DNS + ACM | DNS + TLS | Validation |
-| 21 | RDS | Private DB tier | Security/backup |
+## Completion gates
 
-### Phase 4 — Production Engineering
+- **Gate A — Fundamentals:** explain provider, module, graph, state, plan and apply; write a small validated module.
+- **Gate B — Cloud-specific skills:** build and clean up a small lab in each cloud, or document why live prerequisites are unavailable; explain identity, networking and storage security differences.
+- **Gate C — Production review:** spot state, IAM, secret exposure, replacement, testing, cost, observability and recovery risks in a PR.
+- **Gate D — Interview readiness:** score at least 8/10 on each design exercise and explain why rejected approaches are weaker.
 
-| Day | Topic | Deliverable | Interview Focus |
-|---|---|---|---|
-| 22 | Remote state | S3 backend | Locking/recovery |
-| 23 | Environments | Dev/stage/prod layout | Workspaces vs directories |
-| 24 | CI/CD | PR plan workflow | Plan/apply separation |
-| 25 | IaC security | Checkov + TFLint | Shift-left controls |
-| 26 | Terraform tests | Native test suite | Unit-like vs integration |
-| 27 | Import | Existing infrastructure | Import workflows |
-| 28 | Refactoring | moved block migration | Safe address changes |
-
-### Phase 5 — Expert Operations
-
-| Day | Topic | Deliverable | Interview Focus |
-|---|---|---|---|
-| 29 | Preconditions/postconditions | Invariant checks | Validation semantics |
-| 30 | Drift | Drift response playbook | Detection/remediation |
-| 31 | Secrets | Secret-safe architecture | State exposure |
-| 32 | Cost | Infracost workflow | Cost review |
-| 33 | Multi-account | Provider aliases | AssumeRole |
-| 34 | Multi-region | Regional providers | Provider topology |
-| 35 | Disaster recovery | State recovery runbook | Incident response |
-
-### Phase 6 — Capstones
-
-| Days | Project | Outcome |
-|---|---|---|
-| 36–38 | Secure static platform | S3 + CloudFront + TLS + DNS |
-| 39–42 | Production ECS platform | VPC + ALB + ECS + RDS + secrets |
-| 43–45 | Multi-account platform | Provider aliases + boundaries + CI/CD |
-
-## Assessment Gates
-
-### Gate A
-Explain state, graph, resource, provider, module, variable, output, plan and apply without notes.
-
-### Gate B
-Review a pull request and identify state, IAM, secret, dependency, test, cost and recovery risks.
-
-### Gate C
-Design environment boundaries, provider aliases, module contracts, remote state, CI approval, security controls and recovery.
-
-## Completion Rule
-
-A day is complete only after you can explain the concept, write the configuration, predict the important part of the plan, inspect state, debug one intentional failure, and answer interview questions aloud.
+A topic is complete only when you can modify code without blindly copying, predict the plan, validate, diagnose a controlled failure, and explain security/cost/reliability trade-offs.
