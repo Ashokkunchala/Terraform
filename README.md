@@ -1,12 +1,16 @@
 # Terraform Engineering Lab
 
-A hands-on Terraform + AWS engineering repository for learning, building, testing, securing, and operating infrastructure.
+A hands-on Terraform engineering repository for learning, building, testing, securing, and operating infrastructure across AWS, Microsoft Azure, and Google Cloud.
 
-The repository combines a 60-day curriculum with executable labs and complete reference projects. The learning material remains useful as the theory track; the projects are the implementation track.
+## Start here: Multi-cloud learning and interviews
 
-## Quick start
+- [Multi-cloud learning path](./MULTI_CLOUD_LEARNING_PATH.md) — provider comparisons, a starter plan, state/security guidance, and capstone.
+- [Multi-cloud interview bank](./references/multi-cloud-interview-bank.md) — questions, troubleshooting scenarios, and a self-scoring rubric.
+- [Multi-cloud design exercises](./exercises/04-multi-cloud-design.md) — architecture design, identity failures, state incidents, and destructive-plan drills.
 
-### 1. Cloud-free fundamentals
+Recommended order: cloud-free Terraform basics → AWS labs/projects → Azure starter lab → GCP starter lab → state/CI/security → interview capstone.
+
+## Cloud-free fundamentals
 
 ```bash
 cd labs/00-local-basics
@@ -17,95 +21,49 @@ terraform test
 terraform plan
 ```
 
-### 2. Secure AWS S3 lab
+## AWS hands-on labs and projects
 
-```bash
-cd labs/01-s3-static-data
-# create an untracked terraform.tfvars with bucket_name
-terraform init
-terraform validate
-terraform plan
-terraform apply
-terraform destroy
-```
+- [S3 security lab](./labs/01-s3-static-data)
+- [Remote state bootstrap](./projects/00-state-bootstrap/README.md)
+- [Secure static website](./projects/01-static-site/README.md)
+- [ECS/Fargate platform](./projects/02-ecs-platform/README.md)
+- [EKS platform](./projects/03-eks-platform/README.md)
 
-### 3. Remote state bootstrap
+## Azure and GCP starter labs
 
-```bash
-cd projects/00-state-bootstrap
-terraform init
-terraform apply -var='bucket_name=YOUR-UNIQUE-BUCKET'
-terraform output backend_example
-```
+- [Azure resource group and storage](./labs/02-azure-storage/README.md)
+- [Google Cloud project and storage](./labs/03-gcp-storage/README.md)
 
-### 4. Static website
-
-```bash
-cd projects/01-static-site
-terraform init
-terraform apply
-terraform output cloudfront_url
-```
-
-### 5. ECS/Fargate platform
-
-```bash
-cd projects/02-ecs-platform
-cp terraform.tfvars.example terraform.tfvars
-terraform init
-terraform validate
-terraform plan
-terraform apply
-terraform output load_balancer_url
-```
-
-The ECS platform includes VPC, private networking, ALB, ECR, ECS/Fargate, autoscaling, RDS MySQL, managed Secrets Manager credentials, CloudWatch Logs, deployment rollback, and optional HTTPS.
+The Azure and GCP folders currently provide learning runbooks, not complete executable Terraform roots. Build and validate the configuration in a sandbox before applying.
 
 ## Repository map
 
-- [60-day curriculum](./days/) — progressive Terraform learning.
-- [Labs](./labs/) — small runnable exercises.
+- [Curriculum](./days/) — progressive Terraform learning.
+- [Labs](./labs/) — small exercises and provider runbooks.
 - [Projects](./projects/) — end-to-end AWS implementations.
-- [Modules](./modules/) — reusable module contracts.
-- [Deep dives](./deep-dives/) — advanced Terraform design.
-- [Exercises](./exercises/) — practice questions and scenarios.
-- [Diagrams](./diagrams/) — architecture and state workflows.
+- [Modules](./modules/) — reusable module examples.
+- [Deep dives](./deep-dives/) — advanced design.
+- [Exercises](./exercises/) — scenarios and design reviews.
 - [References](./references/) — commands and interview preparation.
+- [Learning project status](./LEARNING_PROJECT_STATUS.md)
 
-## CI quality gates
+## Safe engineering workflow
 
-GitHub Actions runs recursive formatting and validation for every executable lab/project and runs the native Terraform test for the local lab. CI uses Terraform 1.16.1 for a reproducible CLI baseline.
+**Learn → Read code → Draw the architecture → fmt → init → validate → plan → review → apply in a sandbox → verify → test → destroy → verify cleanup.**
 
-## State and secrets
+Never commit credentials, secret tfvars, Terraform state, plan files, or `.terraform` directories. Review every plan, especially database replacement/deletion and networking changes. Use restricted remote state with locking, versioning, and a tested recovery process where supported.
 
-Use a dedicated remote state bucket for shared environments. The state bootstrap project enables versioning, public-access blocking, and encryption. Generated backend examples use S3-native locking with `use_lockfile = true`.
+## Production review checklist
 
-Never commit credentials, secret `.tfvars`, Terraform state, plan files, or `.terraform` directories.
+- [ ] State, locking, and recovery
+- [ ] Least-privilege identity and CI federation
+- [ ] Encryption and private access
+- [ ] Typed inputs and stable module interfaces
+- [ ] Standard tags/labels
+- [ ] Formatting, validation, tests, and security scanning
+- [ ] Plan and destructive-change review
+- [ ] Cost controls and cleanup verification
+- [ ] Monitoring, backup, disaster recovery
+- [ ] Provider/module upgrade process
 
-## Engineering method
-
-**Learn → Read code → Plan → Apply in a sandbox → Break it → Diagnose → Test → Document → Commit**
-
-## Production checklist
-
-- [ ] Remote state and locking
-- [ ] Least-privilege IAM
-- [ ] Encryption
-- [ ] Input validation
-- [ ] Standard tags
-- [ ] Format + validate + test
-- [ ] Security scanning
-- [ ] Cost controls
-- [ ] Plan review
-- [ ] Monitoring and alarms
-- [ ] Backup and recovery
-- [ ] Disaster recovery procedure
-- [ ] Teardown procedure
-- [ ] Provider upgrade process
-
-## Learning project completion
-
-- [Learning project status and completion criteria](./LEARNING_PROJECT_STATUS.md)
-- [Capstone runbook](./CAPSTONE_RUNBOOK.md) — commands, validation, runtime evidence, and teardown
-- [CI and security guide](./docs/CI_AND_SECURITY.md) — what CI proves, how to run scans, and how to remediate findings
-- [Engineering guide](./ENGINEERING_GUIDE.md) — recommended sequence, AWS safety, and remote-state guidance
+CI validation does not prove successful cloud deployment or runtime health; those require separate evidence.
