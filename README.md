@@ -2,6 +2,11 @@
 
 A hands-on Terraform engineering repository for learning, building, testing, securing, and operating infrastructure across AWS, Microsoft Azure, and Google Cloud.
 
+## Start here: Daily practice and multi-cloud learning
+
+- [Daily practice levels](./DAILY_PRACTICE_LEVELS.md) — daily routine, progressive skill levels, self-scoring, break/fix exercises and a reusable practice log.
+- [Daily lesson standard](./DAILY_LESSON_STANDARD.md) — quality and completion criteria for each lesson.
+
 ## Start here: Multi-cloud learning and interviews
 
 - [Multi-cloud learning path](./MULTI_CLOUD_LEARNING_PATH.md) — provider comparisons, a starter plan, state/security guidance, and capstone.
